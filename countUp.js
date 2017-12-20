@@ -12,7 +12,7 @@
 // duration = duration of animation in seconds, default 2
 // options = optional object of options (see below)
 
-var CountUp = function(target, startVal, endVal, decimals, duration, options) {
+var CountUp = function(target, startVal, endVal, decimals, duration, options,mapping) {
 
 	var self = this;
 	self.version = function () { return '1.9.3'; };
@@ -29,6 +29,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 		suffix: '', // optional text after the result
 		numerals: [] // optionally pass an array of custom numerals for 0-9
 	};
+
+	if(mapping) self.mapping = mapping;
 
 	// extend default options with passed options object
 	if (options && typeof options === 'object') {
@@ -138,7 +140,14 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
 	// Print value to target
 	self.printValue = function(value) {
 		var result = self.options.formattingFn(value);
-
+		if(self.mapping){
+            var stringResult = result.toString();
+            var concatenatedResult = '';
+            for(var i =0 ; i<stringResult.length ; i++){
+                concatenatedResult += self.mapping[stringResult[i]];
+            }
+            result = concatenatedResult;
+        }
 		if (self.d.tagName === 'INPUT') {
 			this.d.value = result;
 		}
