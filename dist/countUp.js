@@ -164,7 +164,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options,map
 									            '7':'७',
 									            '8':'८',
 									            '9':'९',
-									            '.':'.'
+									            '.':'.',
+									            ',':','
 								    		} : self.mapping;
             var stringResult = result.toString();
             var concatenatedResult = '';
