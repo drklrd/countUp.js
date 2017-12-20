@@ -12,7 +12,7 @@
 // duration = duration of animation in seconds, default 2
 // options = optional object of options (see below)
 
-var CountUp = function(target, startVal, endVal, decimals, duration, options,mapping) {
+var CountUp = function(target, startVal, endVal, decimals, duration, options,mapping,devanagari) {
 
 	var self = this;
 	self.version = function () { return '1.9.3'; };
@@ -31,6 +31,7 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options,map
 	};
 
 	if(mapping) self.mapping = mapping;
+	if(devanagari) self.devanagari = devanagari;
 
 	// extend default options with passed options object
 	if (options && typeof options === 'object') {
@@ -140,11 +141,24 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options,map
 	// Print value to target
 	self.printValue = function(value) {
 		var result = self.options.formattingFn(value);
-		if(self.mapping){
+		if(self.mapping || self.devanagari){
+			var mapping = self.devanagari ? {
+									            '0':'०',
+									            '1':'१',
+									            '2':'२',
+									            '3':'३',
+									            '4':'४',
+									            '5':'५',
+									            '6':'६',
+									            '7':'७',
+									            '8':'८',
+									            '9':'९',
+									            '.':'.'
+								    		} : self.mapping;
             var stringResult = result.toString();
             var concatenatedResult = '';
             for(var i =0 ; i<stringResult.length ; i++){
-                concatenatedResult += self.mapping[stringResult[i]];
+                concatenatedResult += mapping[stringResult[i]];
             }
             result = concatenatedResult;
         }
