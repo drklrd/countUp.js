@@ -23,7 +23,7 @@
 // duration = duration of animation in seconds, default 2
 // options = optional object of options (see below)
 
-var CountUp = function(target, startVal, endVal, decimals, duration, options,DialectMappings,mapping,dialect) {
+var CountUp = function(target, startVal, endVal, decimals, duration, options,DialectMappings,mapping) {
 
 	var self = this;
 	self.version = function () { return '1.9.3'; };
@@ -43,7 +43,6 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options,Dia
 
 	if(DialectMappings) self.DialectMappings = DialectMappings;
 	if(mapping) self.mapping = mapping;
-	if(dialect) self.dialect = dialect;
 
 	// extend default options with passed options object
 	if (options && typeof options === 'object') {
@@ -153,8 +152,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options,Dia
 	// Print value to target
 	self.printValue = function(value) {
 		var result = self.options.formattingFn(value);
-		if(self.mapping || self.dialect){
-			var mapping = self.dialect ? DialectMappings[self.dialect] || undefined  : self.mapping;
+		if(self.mapping || self.DialectMappings){
+			var mapping = self.DialectMappings ? self.DialectMappings  : self.mapping;
             if(mapping){
             	var stringResult = result.toString();
             	var concatenatedResult = '';
